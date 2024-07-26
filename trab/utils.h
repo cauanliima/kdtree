@@ -102,11 +102,6 @@ data_type *unpack_optional_array(std::optional<DataPoint> *array,
 void merge_kd_trees(data_type *dest, data_type *branch1, data_type *branch2,
                     array_size branches_size, int n_components);
 
-#ifdef ALTERNATIVE_SERIAL_WRITE
-void rearrange_kd_tree(data_type *dest, data_type *src, array_size subtree_size,
-                       int n_components);
-#endif
-
 /**
  * @brief Convert the given tree to a kind-of linked list structure. This
  * assumes that the given size is a powersum of two.

@@ -3,10 +3,6 @@
 #include <iostream>
 #include <limits>
 
-#ifdef USE_MPI
-#include <mpi.h>
-#endif
-
 #ifndef USE_DOUBLE_PRECISION_DATA
 /**
  * @def
@@ -18,15 +14,6 @@
  * @brief A function used to convert from string to `data_type`.
  */
 #define string_converter std::stof
-
-#ifdef USE_MPI
-/**
- * @def
- * @brief MPI version of `data_type`.
- */
-#define mpi_data_type MPI_FLOAT
-#endif
-
 #else
 /**
  * @def
@@ -38,15 +25,6 @@
  * @brief A function used to convert from string to `data_type`.
  */
 #define string_converter std::stod
-
-#ifdef USE_MPI
-/**
- * @def
- * @brief MPI version of `data_type`.
- */
-#define mpi_data_type MPI_DOUBLE
-#endif
-
 #endif
 
 #ifdef BIG
@@ -151,3 +129,4 @@ public:
    */
   KNode<T> *get_right() const { return right; }
 };
+
