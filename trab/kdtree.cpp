@@ -81,7 +81,16 @@ void KDTreeGreenhouse::build_tree_single_core(
 
     std::vector<DataPoint>::iterator right_branch_first_point =
         first_data_point + split_point_idx + 1;
-#pragma omp task
+
+// in case we're on OpenMP, we need to understand whether we can spawn more
+// OpenMP threads
+#ifdef USE_OMP
+    bool no_spawn_more_threads =
+        depth > max_parallel_depth + 1 ||
+        (depth == max_parallel_depth + 1 && get_rank() >= surplus_workers);
+#endif
+
+#pragma omp task final(no_spawn_more_threads)
     {
 #ifdef DEBUG
       std::cout << "Task assigned to thread " << omp_get_thread_num()
